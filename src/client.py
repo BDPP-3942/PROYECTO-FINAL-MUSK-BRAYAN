@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 class Client:
     def __init__(self,client_id:int,name:str,country:str,signup_date:datetime):
@@ -10,7 +10,7 @@ class Client:
     def to_dict(self):
         return dict({
             "client_id": self.client_id,
-            "name": self.country,
+            "name": self.name,
             "country": self.country,
-            "signup_date": self.signup_date
+            "signup_date": self.signup_date.strftime("%Y-%m-%d")
         })
