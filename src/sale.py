@@ -1,7 +1,7 @@
-import datetime
+from datetime import datetime
 
 class Sale:
-    def __init__(self,sale_id:int,client_id:int,product:str,category:str,amount:int,date:datetime):
+    def __init__(self,sale_id:str,client_id:int,product:str,category:str,amount:float,date:datetime):
         self.sale_id = sale_id
         self.client_id = client_id
         self.product = product
@@ -16,6 +16,6 @@ class Sale:
             "product": self.product,
             "category": self.category,
             "amount": self.amount,
-            "date": self.date
+            "date": self.date.strftime("%Y-%m-%d")
         }
     

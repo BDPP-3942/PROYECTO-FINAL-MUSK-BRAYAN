@@ -1,4 +1,4 @@
-import functional_utils
+from . import functional_utils
 
 class SalesCollection:
     def __init__(self, sales):
