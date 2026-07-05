@@ -11,6 +11,7 @@ CLIENTS_DATA = DATA_FOLDER_PATH / "clients.json"
 SALES_DATA = DATA_FOLDER_PATH / "sales.csv"
 DEFAULT_CATEGORY = "Electronics"
 DEFAULT_MIN_AMOUNT = 500
+REPORT_OUTPUT_PATH = CURRENT_PATH / "final_report.json"
 
 def load_clients():
     """
@@ -186,7 +187,7 @@ def generate_report(category: str | None = None, min_amount: float | None = None
     monthly_sales = round(df_sales.groupby("year_month")["amount"].sum(), 2).to_dict()
 
     # Build the final report with all the calculated metrics and data
-    return {
+    report = {
         "summary": {
             "total_clients": total_clients,
             "total_sales": total_sales,
@@ -199,9 +200,16 @@ def generate_report(category: str | None = None, min_amount: float | None = None
         "monthly_sales": monthly_sales,
     }
 
-if __name__ == "__main__":
-    report = generate_report()
-    output_path = CURRENT_PATH / "final_report.json"
-    with open(output_path, "w", encoding="utf-8") as f:
+    # Write the report file automatically
+    with open(REPORT_OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=3, ensure_ascii=False, default=str)
-    print(f"Report generated at: {output_path}")
+    
+    return report
+
+if __name__ == "__main__":
+    generate_report()
+    print(f"Report generated successfully on path: {REPORT_OUTPUT_PATH}")
+    print(f"With category: {DEFAULT_CATEGORY}")
+    print(f"With min amount: {DEFAULT_MIN_AMOUNT}")
+    print(f"Resulting on following report: \n{json.dumps(generate_report(), indent=3, ensure_ascii=False, default=str)}")
+
